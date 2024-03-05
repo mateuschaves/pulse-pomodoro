@@ -15,6 +15,11 @@
 		8841F44E2B92E77A000C3B58 /* PulsePomodoro_Watch_AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8841F44D2B92E77A000C3B58 /* PulsePomodoro_Watch_AppTests.swift */; };
 		8841F4582B92E77A000C3B58 /* PulsePomodoro_Watch_AppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8841F4572B92E77A000C3B58 /* PulsePomodoro_Watch_AppUITests.swift */; };
 		8841F45A2B92E77A000C3B58 /* PulsePomodoro_Watch_AppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8841F4592B92E77A000C3B58 /* PulsePomodoro_Watch_AppUITestsLaunchTests.swift */; };
+		88E616F52B97DCD8009BEB6F /* PomodoroModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E616F42B97DCD8009BEB6F /* PomodoroModel.swift */; };
+		88E616F72B97DD29009BEB6F /* DateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E616F62B97DD29009BEB6F /* DateModel.swift */; };
+		88E616FA2B97DD7E009BEB6F /* HealhKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E616F92B97DD7E009BEB6F /* HealhKitService.swift */; };
+		88E616FC2B97DDB5009BEB6F /* LocalStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E616FB2B97DDB5009BEB6F /* LocalStorageService.swift */; };
+		88E616FF2B97DE06009BEB6F /* RemainingMinutesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E616FE2B97DE06009BEB6F /* RemainingMinutesView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +74,11 @@
 		8841F4592B92E77A000C3B58 /* PulsePomodoro_Watch_AppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulsePomodoro_Watch_AppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		88A8C16B2B966DA300B20D66 /* PulsePomodoro Watch App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "PulsePomodoro Watch App.entitlements"; sourceTree = "<group>"; };
 		88A8C16F2B9689A600B20D66 /* PulsePomodoro-Watch-App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "PulsePomodoro-Watch-App-Info.plist"; sourceTree = SOURCE_ROOT; };
+		88E616F42B97DCD8009BEB6F /* PomodoroModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroModel.swift; sourceTree = "<group>"; };
+		88E616F62B97DD29009BEB6F /* DateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateModel.swift; sourceTree = "<group>"; };
+		88E616F92B97DD7E009BEB6F /* HealhKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealhKitService.swift; sourceTree = "<group>"; };
+		88E616FB2B97DDB5009BEB6F /* LocalStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorageService.swift; sourceTree = "<group>"; };
+		88E616FE2B97DE06009BEB6F /* RemainingMinutesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemainingMinutesView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +130,9 @@
 		8841F43B2B92E779000C3B58 /* PulsePomodoro Watch App */ = {
 			isa = PBXGroup;
 			children = (
+				88E616FD2B97DDD7009BEB6F /* views */,
+				88E616F82B97DD59009BEB6F /* services */,
+				88E616F32B97DC92009BEB6F /* models */,
 				88A8C16F2B9689A600B20D66 /* PulsePomodoro-Watch-App-Info.plist */,
 				88A8C16B2B966DA300B20D66 /* PulsePomodoro Watch App.entitlements */,
 				8841F43C2B92E779000C3B58 /* PulsePomodoroApp.swift */,
@@ -153,6 +166,32 @@
 				8841F4592B92E77A000C3B58 /* PulsePomodoro_Watch_AppUITestsLaunchTests.swift */,
 			);
 			path = "PulsePomodoro Watch AppUITests";
+			sourceTree = "<group>";
+		};
+		88E616F32B97DC92009BEB6F /* models */ = {
+			isa = PBXGroup;
+			children = (
+				88E616F42B97DCD8009BEB6F /* PomodoroModel.swift */,
+				88E616F62B97DD29009BEB6F /* DateModel.swift */,
+			);
+			path = models;
+			sourceTree = "<group>";
+		};
+		88E616F82B97DD59009BEB6F /* services */ = {
+			isa = PBXGroup;
+			children = (
+				88E616F92B97DD7E009BEB6F /* HealhKitService.swift */,
+				88E616FB2B97DDB5009BEB6F /* LocalStorageService.swift */,
+			);
+			path = services;
+			sourceTree = "<group>";
+		};
+		88E616FD2B97DDD7009BEB6F /* views */ = {
+			isa = PBXGroup;
+			children = (
+				88E616FE2B97DE06009BEB6F /* RemainingMinutesView.swift */,
+			);
+			path = views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -313,6 +352,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				88E616FA2B97DD7E009BEB6F /* HealhKitService.swift in Sources */,
+				88E616FC2B97DDB5009BEB6F /* LocalStorageService.swift in Sources */,
+				88E616F52B97DCD8009BEB6F /* PomodoroModel.swift in Sources */,
+				88E616F72B97DD29009BEB6F /* DateModel.swift in Sources */,
+				88E616FF2B97DE06009BEB6F /* RemainingMinutesView.swift in Sources */,
 				8841F43F2B92E779000C3B58 /* ContentView.swift in Sources */,
 				8841F43D2B92E779000C3B58 /* PulsePomodoroApp.swift in Sources */,
 			);
