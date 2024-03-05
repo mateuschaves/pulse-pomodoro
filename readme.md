@@ -7,9 +7,13 @@ PulsePomodoro is a Pomodoro app designed specifically for Apple Watch. It helps 
 
 ## Demonstration
 
-![Demo 1](doc/demo00.png)
-![Demo 2](doc/demo01.png)
-![Demo 3](doc/demo02.png)
+<p align="center">
+    <img src="doc/demo00.png" alt="Logo" width="200">
+    <img src="doc/demo01.png" alt="Logo" width="200">
+    <img src="doc/demo02.png" alt="Logo" width="200">
+
+</p>
+
 
 ## Installation
 
