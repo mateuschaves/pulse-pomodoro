@@ -14,6 +14,9 @@ PulsePomodoro is a Pomodoro app designed specifically for Apple Watch. It helps 
 
 </p>
 
+## App Store
+
+You can download PulsePomodoro from the [App Store](https://apps.apple.com/us/app/pulse-pomodoro/id6478802934).
 
 ## Installation
 
