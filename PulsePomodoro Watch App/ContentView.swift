@@ -8,6 +8,7 @@ import WatchKit
 import SwiftUI
 import UIKit
 import HealthKit
+import UserNotifications
 
 extension Date {
     init(month: Int, day: Int, year: Int, hour: Int = 0, minute: Int = 0, second: Int = 0) {
@@ -29,7 +30,7 @@ class HeartRateMonitor {
     var query: HKObserverQuery?
     
     func requestAuthorization() {
-        let typesToRead: Set<HKSampleType> = [HKObjectType.quantityType(forIdentifier: .heartRate)!]
+        let typesToRead: Set<HKSampleType> = [HKObjectType.quantityType(forIdentifier: .heartRate)!, HKObjectType.quantityType(forIdentifier: .respiratoryRate)!]
         
         healthStore.requestAuthorization(toShare: nil, read: typesToRead) { (success, error) in
             if success {
@@ -40,95 +41,107 @@ class HeartRateMonitor {
         }
     }
     
-    func fetchHeartRateData() -> Int {
-        // Define the range for the last minute
+    func getHeartRateFromLastSeconds(seconds: Int, completion: @escaping (Int?) -> Void) {
+        let healthStore = HKHealthStore()
+        
         let endDate = Date()
-        let startDate = Calendar.current.date(byAdding: .minute, value: -30, to: endDate)!
-
-        // Define the predicate for the query
+        let startDate = Calendar.current.date(byAdding: .minute, value: -seconds, to: endDate)!
+        
         let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: .strictStartDate)
-
-        // Define the sort descriptor
+        
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)
-
-        var heartRateToShow = 0
-        // Create the query
+        
         let query = HKSampleQuery(sampleType: HKObjectType.quantityType(forIdentifier: .heartRate)!, predicate: predicate, limit: HKObjectQueryNoLimit, sortDescriptors: [sortDescriptor]) { (query, samples, error) in
             if let error = error {
                 print("Error querying heart rate data: \(error.localizedDescription)")
+                completion(nil)
                 return
             }
-
-            // Process the heart rate samples
             
+            var heartRateToShow = 0
             if let heartRateSamples = samples as? [HKQuantitySample] {
                 for sample in heartRateSamples {
                     let heartRate = sample.quantity.doubleValue(for: HKUnit.count().unitDivided(by: .minute()))
-                    let timestamp = sample.startDate
-                    heartRateToShow = heartRateToShow + Int(heartRate)
+                    heartRateToShow += Int(heartRate)
                 }
                 
-                heartRateToShow = heartRateToShow / (samples?.count ?? 1)
-                
+                heartRateToShow = heartRateToShow / max(1, heartRateSamples.count)
             }
+            
+            completion(heartRateToShow)
         }
-
-        // Execute the query
-        healthStore.execute(query)
         
-        return heartRateToShow
+        healthStore.execute(query)
     }
     
-    func getHeartRateFromLastSeconds(seconds: Double) {
-        print("getHeartRateFromLastSeconds \(seconds)")
-        // Check if HealthKit is available on this device
-        guard HKHealthStore.isHealthDataAvailable() else {
-            print("HealthKit is not available on this device.")
-            return
-        }
-        
+    func getRespirationRateFromLastSeconds(seconds: Int, completion: @escaping (Int?) -> Void) {
         let healthStore = HKHealthStore()
-        let heartRateType = HKQuantityType.quantityType(forIdentifier: .heartRate)!
         
-        
-        // Set up the query to retrieve heart rate samples from the last 5 minutes
-        let startDate = Date().addingTimeInterval(-300) // 5 minutes ago
         let endDate = Date()
+        let startDate = Calendar.current.date(byAdding: .minute, value: -seconds, to: endDate)!
+        
         let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: .strictStartDate)
         
-        let query = HKStatisticsCollectionQuery(quantityType: heartRateType,
-                                                quantitySamplePredicate: predicate,
-                                                options: .discreteAverage,
-                                                anchorDate: startDate,
-                                                intervalComponents: DateComponents(minute: 1))
+        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)
         
-        query.initialResultsHandler = { query, statisticsCollection, error in
-            guard let statisticsCollection = statisticsCollection else {
-                print("Failed to fetch heart rate data: \(error?.localizedDescription ?? "Unknown error")")
+        let query = HKSampleQuery(sampleType: HKObjectType.quantityType(forIdentifier: .respiratoryRate)!, predicate: predicate, limit: HKObjectQueryNoLimit, sortDescriptors: [sortDescriptor]) { (query, samples, error) in
+            if let error = error {
+                print("Error querying respiration rate data: \(error.localizedDescription)")
+                completion(nil)
                 return
             }
             
-            // Process the statistics collection to get the average heart rate over the last 5 minutes
-            var dateStart = Date(month: 2, day: 3, year: 2024)
-            
-            var dateEnd = Date(month: 2, day: 5, year: 2024)
-
-            statisticsCollection.enumerateStatistics(from: dateStart, to: dateEnd) { statistics, _ in
-                if let averageHeartRate = statistics.averageQuantity() {
-                    print("aqui")
-                    let heartRateUnit = HKUnit.count().unitDivided(by: .minute())
-                    let value = averageHeartRate.doubleValue(for: heartRateUnit)
-                    print("Average heart rate over the last 5 minutes: \(value) beats per minute")
+            var respirationRateToShow = 0
+            if let respirationRateSamples = samples as? [HKQuantitySample] {
+                for sample in respirationRateSamples {
+                    let respirationRate = sample.quantity.doubleValue(for: HKUnit.count().unitDivided(by: .minute()))
+                    respirationRateToShow += Int(respirationRate)
                 }
-                print("statistics \(statistics)")
+                
+                respirationRateToShow = respirationRateToShow / max(1, respirationRateSamples.count)
             }
+            
+            completion(respirationRateToShow)
         }
         
-        // Execute the query
         healthStore.execute(query)
+    }
+    
+    func isRestingHeartRateNormal(heartRate: Int) -> Bool {
+        return heartRate < 100 && heartRate > 50
+    }
+
+    func isRespirationRateNormal(respirationRate: Int) -> Bool {
+        return respirationRate < 25 && respirationRate > 10
     }
 }
 
+class LocalStorageManager {
+    static let shared = LocalStorageManager()
+    
+    private let defaults = UserDefaults.standard
+    
+    private init() {}
+    
+    func save(key: String, value: Any) {
+        defaults.set(value, forKey: key)
+    }
+    
+    func get(key: String) -> Any? {
+        return defaults.value(forKey: key)
+    }
+}
+
+struct Pomodoro: Codable {
+    var heartRate: Int
+    var respiratoryRate: Int
+    var startDate: Date
+    var endDate: Date
+    var duration: Int
+    var isHeartRateNormal: Bool
+    var isRespirationRateNormal: Bool
+    var isCompleted: Bool
+}
 
 struct RemainingMinutesView: View {
     var timerSeconds: Int
@@ -136,6 +149,9 @@ struct RemainingMinutesView: View {
     @State private var remainingSeconds = 0
     @State private var countdownTimer: Timer?
     @State private var showAlert = false
+    @State private var heartRate = 0
+    @State private var repiratoryRate = 0
+    @State private var startDate = Date()
     
     let heartRateMonitor = HeartRateMonitor()
     
@@ -156,6 +172,70 @@ struct RemainingMinutesView: View {
             }
     }
     
+    func handleEndCountdown() {
+        WKInterfaceDevice.current().play(.success)
+        countdownTimer?.invalidate()
+        showAlert = true
+        
+        let dispatchGroup = DispatchGroup()
+        
+        var heartRate: Int?
+        var respiratoryRate: Int?
+        
+        // Enter dispatch group before starting the first asynchronous task
+        dispatchGroup.enter()
+        heartRateMonitor.getHeartRateFromLastSeconds(seconds: timerSeconds) { receivedHeartRate in
+            heartRate = receivedHeartRate
+            dispatchGroup.leave() // Leave the dispatch group when the first task is done
+        }
+        
+        // Enter dispatch group before starting the second asynchronous task
+        dispatchGroup.enter()
+        heartRateMonitor.getRespirationRateFromLastSeconds(seconds: timerSeconds) { receivedRespiratoryRate in
+            respiratoryRate = receivedRespiratoryRate
+            dispatchGroup.leave() // Leave the dispatch group when the second task is done
+        }
+        
+        // Notify when both tasks are completed
+        dispatchGroup.notify(queue: .main) {
+            // Both tasks are finished
+            if let heartRate = heartRate, let respiratoryRate = respiratoryRate {
+                print("Heart rate on last \(timerSeconds) seconds was \(heartRate)")
+                let isHeartRateNormal = heartRateMonitor.isRestingHeartRateNormal(heartRate: heartRate)
+                self.heartRate = heartRate
+                
+                print("Respiratory rate on last \(timerSeconds) seconds was \(respiratoryRate)")
+                let isRespirationRateNormal = heartRateMonitor.isRespirationRateNormal(respirationRate: respiratoryRate)
+                self.repiratoryRate = respiratoryRate
+                // Save pomodoro as JSON array
+                var previousPomodoros = LocalStorageManager.shared.get(key: "pomodoros") as? [Data] ?? []
+                var currentPomodoroJson: Data?
+                do {
+                    currentPomodoroJson = try JSONEncoder().encode(
+                        Pomodoro(
+                            heartRate: heartRate,
+                            respiratoryRate: respiratoryRate,
+                            startDate: startDate,
+                            endDate: Date(),
+                            duration: timerSeconds,
+                            isHeartRateNormal: isHeartRateNormal,
+                            isRespirationRateNormal: isRespirationRateNormal,
+                            isCompleted: true
+                        )
+                    )
+                } catch {
+                    print("Error encoding current pomodoro: \(error)")
+                }
+                
+                if let currentPomodoroJson = currentPomodoroJson {
+                    previousPomodoros.append(currentPomodoroJson)
+                    LocalStorageManager.shared.save(key: "pomodoros", value: previousPomodoros)
+                }
+            }
+        }
+    }
+
+    
     func startCountdown() {
         remainingSeconds = timerSeconds
         countdownTimer?.invalidate()
@@ -163,11 +243,8 @@ struct RemainingMinutesView: View {
             if self.remainingSeconds > 0 {
                 self.remainingSeconds -= 1
             } else {
-                WKInterfaceDevice.current().play(.success)
-                timer.invalidate()
-                showAlert = true
-                
-                heartRateMonitor.fetchHeartRateData()         }
+                self.handleEndCountdown()
+            }
             NSLog("Segundos restantes: \(self.remainingSeconds)")
         }
     }
@@ -204,10 +281,19 @@ struct ContentView: View {
             }.navigationTitle("Focus time")
         }.onAppear(perform: {
             heartRateMonitor.requestAuthorization()
+            // print previous pomodoros
+            if let pomodoros = LocalStorageManager.shared.get(key: "pomodoros") as? [Data] {
+                for pomodoro in pomodoros {
+                    do {
+                        let decodedPomodoro = try JSONDecoder().decode(Pomodoro.self, from: pomodoro)
+                        print("Pomodoro: \(decodedPomodoro)")
+                    } catch {
+                        print("Error decoding pomodoro: \(error)")
+                    }
+                }
+            }
         })
     }
 }
 
-#Preview {
-    ContentView()
-}
+
