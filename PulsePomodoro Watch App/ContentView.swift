@@ -1,9 +1,3 @@
-//
-//  ContentView.swift
-//  PulsePomodoro Watch App
-//
-//  Created by Mateus Henrique on 02/03/24.
-//
 import WatchKit
 import SwiftUI
 import UIKit
@@ -17,7 +11,7 @@ struct ContentView: View {
     let heartRateMonitor = HeartRateMonitor()
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
                 Stepper(value: $minutes, in: 0...60, step: 1) {
                     Text("\(minutes) minutes")

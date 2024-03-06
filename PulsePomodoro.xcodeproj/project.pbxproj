@@ -20,6 +20,7 @@
 		88E616FA2B97DD7E009BEB6F /* HealhKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E616F92B97DD7E009BEB6F /* HealhKitService.swift */; };
 		88E616FC2B97DDB5009BEB6F /* LocalStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E616FB2B97DDB5009BEB6F /* LocalStorageService.swift */; };
 		88E616FF2B97DE06009BEB6F /* RemainingMinutesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E616FE2B97DE06009BEB6F /* RemainingMinutesView.swift */; };
+		88E617052B97E818009BEB6F /* PomodoroResumeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E617042B97E818009BEB6F /* PomodoroResumeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +80,7 @@
 		88E616F92B97DD7E009BEB6F /* HealhKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealhKitService.swift; sourceTree = "<group>"; };
 		88E616FB2B97DDB5009BEB6F /* LocalStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorageService.swift; sourceTree = "<group>"; };
 		88E616FE2B97DE06009BEB6F /* RemainingMinutesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemainingMinutesView.swift; sourceTree = "<group>"; };
+		88E617042B97E818009BEB6F /* PomodoroResumeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroResumeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,6 +192,7 @@
 			isa = PBXGroup;
 			children = (
 				88E616FE2B97DE06009BEB6F /* RemainingMinutesView.swift */,
+				88E617042B97E818009BEB6F /* PomodoroResumeView.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -358,6 +361,7 @@
 				88E616F72B97DD29009BEB6F /* DateModel.swift in Sources */,
 				88E616FF2B97DE06009BEB6F /* RemainingMinutesView.swift in Sources */,
 				8841F43F2B92E779000C3B58 /* ContentView.swift in Sources */,
+				88E617052B97E818009BEB6F /* PomodoroResumeView.swift in Sources */,
 				8841F43D2B92E779000C3B58 /* PulsePomodoroApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

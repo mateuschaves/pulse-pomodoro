@@ -1,10 +1,3 @@
-//
-//  PomodoroModel.swift
-//  PulsePomodoro Watch App
-//
-//  Created by Mateus Henrique on 05/03/24.
-//
-
 import Foundation
 
 struct Pomodoro: Codable {
