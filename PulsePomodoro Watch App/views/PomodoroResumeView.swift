@@ -2,12 +2,15 @@ import Foundation
 import SwiftUI
 
 struct PomodoroResumeView: View {
+    @Environment(\.presentationMode) var presentationMode
     
     var timeFocused: Int
     var startDate: Date
+    var cycles: Int
     
     @State private var averageHr = 0
     @State private var averageBreath = 0
+    @State private var goToHome = false
     
     let heartRateMonitor = HeartRateMonitor()
     
@@ -21,7 +24,7 @@ struct PomodoroResumeView: View {
                         .padding(EdgeInsets(
                             top: 2, leading: 0, bottom: 0, trailing: 0
                         ))
-                    Text("\(formatSecondsToMMSS(seconds: timeFocused))")
+                    Text("\(formatSecondsToMMSS(seconds: timeFocused)) in \(cycles) cycles")
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .foregroundStyle(Color.yellow)
                         .fontWeight(Font.Weight.bold)
@@ -83,10 +86,28 @@ struct PomodoroResumeView: View {
             }
             .navigationBarTitle("Summary")
             .navigationBarTitleDisplayMode(.inline)
+            
             .padding()
         }.onAppear(perform: {
             self.savePomodoro()
         })
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button(action: {
+                    self.goToHome = true
+                }) {
+                    Image(systemName: "xmark")
+                }
+            }
+        }
+        .navigationDestination(
+            isPresented: self.$goToHome
+        ) {
+            ContentView()
+        }
+        .navigationBarBackButtonHidden(true)
+        .toolbar(.hidden)
     }
     
     func formatSecondsToMMSS(seconds: Int) -> String {
@@ -121,7 +142,7 @@ struct PomodoroResumeView: View {
             if let heartRate = heartRate, let respiratoryRate = respiratoryRate {
                 self.averageHr = heartRate
                 self.averageBreath = respiratoryRate
-                
+                    
                 print("Heart rate on last \(timeFocused) seconds was \(heartRate)")
                 let isHeartRateNormal = heartRateMonitor.isRestingHeartRateNormal(heartRate: heartRate)
                 
@@ -161,7 +182,8 @@ struct PomodoroResumeView_Previews: PreviewProvider {
         NavigationStack {
             PomodoroResumeView(
                 timeFocused: 300,
-                startDate: Date()
+                startDate: Date(),
+                cycles: 2
             )
         }
     }

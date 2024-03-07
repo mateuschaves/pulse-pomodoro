@@ -4,5 +4,8 @@
 <dict>
 	<key>NSHealthShareUsageDescription</key>
 	<string>HKQuantityTypeIdentifierHeartRate</string>
+
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>We need this data to monitor your heart rate while you are using pomodoro</string>
 </dict>
 </plist>

@@ -13,9 +13,18 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             VStack {
+                Text("Focus time")
+                    .font(.caption)
+                    .fontWeight(.bold)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .scenePadding()
+                    .padding(
+                        EdgeInsets(top: -20, leading: 0, bottom: 0, trailing: 0)
+                    )
+                Spacer()
                 Stepper(value: $minutes, in: 0...60, step: 1) {
                     Text("\(minutes) minutes")
-                        .font(.headline)
+                        .font(.caption2)
                 }
                 .padding(.top, 18)
                 .padding(.bottom, 18)
@@ -25,11 +34,20 @@ struct ContentView: View {
                     label: {
                         Text("Confirm")
                     })
-            }.navigationTitle("Focus time")
+            }
+            .padding()
+
         }.onAppear(perform: {
             heartRateMonitor.requestAuthorization()
         })
     }
 }
 
+struct ContentView_Preview: PreviewProvider {
+    static var previews: some View {
+        NavigationStack {
+            ContentView()
+        }
+    }
+}
 

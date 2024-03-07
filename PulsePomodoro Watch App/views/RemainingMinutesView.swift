@@ -14,49 +14,79 @@ struct RemainingMinutesView: View {
     @State private var cycles = 0
     @State private var totalTimeFocused = 0
     
+    @State private var timeInactiveInSecods = 0
+    @State private var startInactiveDate = Date()
+    @State private var endInactiveDate = Date()
+    
+    @Environment(\.scenePhase) var scenePhase
+    @Environment(\.presentationMode) var presentationMode
+
+    
     var body: some View {
-        Text("\(self.formatSecondsToMMSS(seconds: remainingSeconds))")
-            .font(.largeTitle)
-            .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
-            .onAppear {
-                startCountdown()
-                WKExtension.shared().isFrontmostTimeoutExtended = true
-            }
-        HStack {
-            NavigationLink(
-                destination: PomodoroResumeView(
-                    timeFocused: self.totalTimeFocused,
-                    startDate: self.startDate
-                ),
-                label: {
-                    Image(systemName: "checkmark")
-                        .foregroundStyle(Color.green)
-                        .font(.title2)
-                        .padding(
-                            EdgeInsets(
-                                top: 0,
-                                leading: 0,
-                                bottom: 0,
-                                trailing: 26
-                            )
-                        )
+        NavigationStack {
+            Text("\(self.formatSecondsToMMSS(seconds: remainingSeconds))")
+                .font(.largeTitle)
+                .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                .onAppear {
+                    startCountdown()
                 }
-            ).buttonStyle(PlainButtonStyle())
-            
-            Image(systemName: $isPaused.wrappedValue || $isTimeOver.wrappedValue ? "play" : "pause")
-                .foregroundStyle(Color.yellow)
-                .font(.title2)
-                .padding(EdgeInsets(top: 0, leading: 26, bottom: 0, trailing: 0))
-                .onTapGesture(perform: {
-                    if (self.isTimeOver) {
-                        self.startCountdown()
-                        self.isTimeOver.toggle()
-                    } else {
-                        self.isPaused.toggle()
+            HStack {
+                NavigationLink(
+                    destination: PomodoroResumeView(
+                        timeFocused: self.totalTimeFocused,
+                        startDate: self.startDate,
+                        cycles: self.cycles
+                    ),
+                    label: {
+                        Image(systemName: "checkmark")
+                            .foregroundStyle(Color.green)
+                            .font(.title2)
+                            .padding(
+                                EdgeInsets(
+                                    top: 0,
+                                    leading: 0,
+                                    bottom: 0,
+                                    trailing: 26
+                                )
+                            )
                     }
-                })
+                )
+                .buttonStyle(PlainButtonStyle())
+                .disabled(!isTimeOver)
+                .onTapGesture {
+                    if (isTimeOver) {
+                        handleEndCountdown()
+                    }
+                }
+                
+                Image(systemName: $isPaused.wrappedValue || $isTimeOver.wrappedValue ? "play" : "pause")
+                    .foregroundStyle(Color.yellow)
+                    .font(.title2)
+                    .padding(EdgeInsets(top: 0, leading: 26, bottom: 0, trailing: 0))
+                    .onTapGesture(perform: {
+                        if (self.isTimeOver) {
+                            self.startCountdown()
+                            self.isTimeOver.toggle()
+                        } else {
+                            self.isPaused.toggle()
+                        }
+                    })
+            }
+            .padding(EdgeInsets(top: 16, leading: 0, bottom: 0, trailing: 0))
+            Spacer()
+            Text("\(self.cycles) cycles")
+                .padding()
+                .fontWeight(Font.Weight.thin)
+            
+        }.onChange(of: scenePhase)  { newPhase in
+            if newPhase == .active {
+                self.endInactiveDate = Date()
+                self.timeInactiveInSecods = Int(self.endInactiveDate.timeIntervalSince(self.startInactiveDate))
+                self.remainingSeconds = max(0, self.remainingSeconds - self.timeInactiveInSecods)
+              } else if newPhase == .inactive {
+                self.startInactiveDate =  Date()
+              }
         }
-        .padding(EdgeInsets(top: 16, leading: 0, bottom: 0, trailing: 0))
     }
     
     func handleEndCountdown() {
@@ -66,7 +96,7 @@ struct RemainingMinutesView: View {
         self.cycles += 1
         self.totalTimeFocused += timerSeconds
     }
-
+    
     
     func startCountdown() {
         remainingSeconds = timerSeconds
