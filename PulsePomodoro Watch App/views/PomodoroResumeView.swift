@@ -12,10 +12,13 @@ struct PomodoroResumeView: View {
     @State private var averageBreath = 0
     @State private var goToHome = false
     
+    @EnvironmentObject var router: Router
+    
     let heartRateMonitor = HeartRateMonitor()
+    let pomodoroService = PomodoroService()
     
     var body: some View {
-        NavigationView {
+        VStack {
             ScrollView {
                 VStackLayout {
                     Text("Time focused")
@@ -86,7 +89,6 @@ struct PomodoroResumeView: View {
             }
             .navigationBarTitle("Summary")
             .navigationBarTitleDisplayMode(.inline)
-            
             .padding()
         }.onAppear(perform: {
             self.savePomodoro()
@@ -95,19 +97,12 @@ struct PomodoroResumeView: View {
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Button(action: {
-                    self.goToHome = true
+                    router.navigateToRoot()
                 }) {
                     Image(systemName: "xmark")
                 }
             }
         }
-        .navigationDestination(
-            isPresented: self.$goToHome
-        ) {
-            ContentView()
-        }
-        .navigationBarBackButtonHidden(true)
-        .toolbar(.hidden)
     }
     
     func formatSecondsToMMSS(seconds: Int) -> String {
@@ -142,35 +137,28 @@ struct PomodoroResumeView: View {
             if let heartRate = heartRate, let respiratoryRate = respiratoryRate {
                 self.averageHr = heartRate
                 self.averageBreath = respiratoryRate
-                    
+                
                 print("Heart rate on last \(timeFocused) seconds was \(heartRate)")
                 let isHeartRateNormal = heartRateMonitor.isRestingHeartRateNormal(heartRate: heartRate)
                 
                 print("Respiratory rate on last \(timeFocused) seconds was \(respiratoryRate)")
                 let isRespirationRateNormal = heartRateMonitor.isRespirationRateNormal(respirationRate: respiratoryRate)
                 // Save pomodoro as JSON array
-                var previousPomodoros = LocalStorageManager.shared.get(key: "pomodoros") as? [Data] ?? []
-                var currentPomodoroJson: Data?
-                do {
-                    currentPomodoroJson = try JSONEncoder().encode(
-                        Pomodoro(
-                            heartRate: heartRate,
-                            respiratoryRate: respiratoryRate,
-                            startDate: startDate,
-                            endDate: Date(),
-                            duration: timeFocused,
-                            isHeartRateNormal: isHeartRateNormal,
-                            isRespirationRateNormal: isRespirationRateNormal,
-                            isCompleted: true
-                        )
-                    )
-                } catch {
-                    print("Error encoding current pomodoro: \(error)")
-                }
                 
-                if let currentPomodoroJson = currentPomodoroJson {
-                    previousPomodoros.append(currentPomodoroJson)
-                    LocalStorageManager.shared.save(key: "pomodoros", value: previousPomodoros)
+                pomodoroService.savePomodoroOnStorage(
+                    heartRate: self.averageHr,
+                    respiratoryRate: self.averageBreath,
+                    startDate: self.startDate,
+                    timeFocused: self.timeFocused,
+                    isHeartRateNormal: isHeartRateNormal,
+                    isRespirationRateNormal: isRespirationRateNormal
+                ) { result in
+                    switch result {
+                    case .success:
+                        print("Pomodoro saved")
+                    case .failure(let error):
+                        print("Error saving pomodoro: \(error)")
+                    }
                 }
             }
         }

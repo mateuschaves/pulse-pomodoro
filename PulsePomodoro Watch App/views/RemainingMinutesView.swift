@@ -18,12 +18,13 @@ struct RemainingMinutesView: View {
     @State private var startInactiveDate = Date()
     @State private var endInactiveDate = Date()
     
+    @EnvironmentObject var router: Router
     @Environment(\.scenePhase) var scenePhase
     @Environment(\.presentationMode) var presentationMode
-
+    
     
     var body: some View {
-        NavigationStack {
+        VStack {
             Text("\(self.formatSecondsToMMSS(seconds: remainingSeconds))")
                 .font(.largeTitle)
                 .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
@@ -31,33 +32,22 @@ struct RemainingMinutesView: View {
                     startCountdown()
                 }
             HStack {
-                NavigationLink(
-                    destination: PomodoroResumeView(
-                        timeFocused: self.totalTimeFocused,
-                        startDate: self.startDate,
-                        cycles: self.cycles
-                    ),
-                    label: {
-                        Image(systemName: "checkmark")
-                            .foregroundStyle(Color.green)
-                            .font(.title2)
-                            .padding(
-                                EdgeInsets(
-                                    top: 0,
-                                    leading: 0,
-                                    bottom: 0,
-                                    trailing: 26
-                                )
-                            )
+
+                Image(systemName: "checkmark")
+                    .foregroundStyle(Color.green)
+                    .font(.title2)
+                    .padding(
+                        EdgeInsets(
+                            top: 0,
+                            leading: 0,
+                            bottom: 0,
+                            trailing: 26
+                        )
+                    )
+                    .buttonStyle(PlainButtonStyle())
+                    .onTapGesture {
+                        router.navigate(to: .pomodoroResumeView(timeFocused: totalTimeFocused, startDate: startDate, cycles: cycles))
                     }
-                )
-                .buttonStyle(PlainButtonStyle())
-                .disabled(!isTimeOver)
-                .onTapGesture {
-                    if (isTimeOver) {
-                        handleEndCountdown()
-                    }
-                }
                 
                 Image(systemName: $isPaused.wrappedValue || $isTimeOver.wrappedValue ? "play" : "pause")
                     .foregroundStyle(Color.yellow)
@@ -83,9 +73,9 @@ struct RemainingMinutesView: View {
                 self.endInactiveDate = Date()
                 self.timeInactiveInSecods = Int(self.endInactiveDate.timeIntervalSince(self.startInactiveDate))
                 self.remainingSeconds = max(0, self.remainingSeconds - self.timeInactiveInSecods)
-              } else if newPhase == .inactive {
+            } else if newPhase == .inactive {
                 self.startInactiveDate =  Date()
-              }
+            }
         }
     }
     

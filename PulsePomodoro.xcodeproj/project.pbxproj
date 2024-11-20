@@ -3,10 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 60;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		883E40072CE5B3A10052EF8F /* TimerOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883E40062CE5B3930052EF8F /* TimerOption.swift */; };
+		883E40092CE5BAE40052EF8F /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883E40082CE5BAE00052EF8F /* Router.swift */; };
 		8841F4382B92E779000C3B58 /* PulsePomodoro Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 8841F4372B92E779000C3B58 /* PulsePomodoro Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8841F43D2B92E779000C3B58 /* PulsePomodoroApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8841F43C2B92E779000C3B58 /* PulsePomodoroApp.swift */; };
 		8841F43F2B92E779000C3B58 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8841F43E2B92E779000C3B58 /* ContentView.swift */; };
@@ -15,6 +17,7 @@
 		8841F44E2B92E77A000C3B58 /* PulsePomodoro_Watch_AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8841F44D2B92E77A000C3B58 /* PulsePomodoro_Watch_AppTests.swift */; };
 		8841F4582B92E77A000C3B58 /* PulsePomodoro_Watch_AppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8841F4572B92E77A000C3B58 /* PulsePomodoro_Watch_AppUITests.swift */; };
 		8841F45A2B92E77A000C3B58 /* PulsePomodoro_Watch_AppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8841F4592B92E77A000C3B58 /* PulsePomodoro_Watch_AppUITestsLaunchTests.swift */; };
+		8862818E2B9AA8EB008C87E3 /* PomodoroService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8862818D2B9AA8EB008C87E3 /* PomodoroService.swift */; };
 		88E616F52B97DCD8009BEB6F /* PomodoroModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E616F42B97DCD8009BEB6F /* PomodoroModel.swift */; };
 		88E616F72B97DD29009BEB6F /* DateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E616F62B97DD29009BEB6F /* DateModel.swift */; };
 		88E616FA2B97DD7E009BEB6F /* HealhKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E616F92B97DD7E009BEB6F /* HealhKitService.swift */; };
@@ -62,6 +65,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		883E40062CE5B3930052EF8F /* TimerOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerOption.swift; sourceTree = "<group>"; };
+		883E40082CE5BAE00052EF8F /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		8841F4312B92E778000C3B58 /* PulsePomodoro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PulsePomodoro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8841F4372B92E779000C3B58 /* PulsePomodoro Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PulsePomodoro Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8841F43C2B92E779000C3B58 /* PulsePomodoroApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulsePomodoroApp.swift; sourceTree = "<group>"; };
@@ -73,6 +78,7 @@
 		8841F4532B92E77A000C3B58 /* PulsePomodoro Watch AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "PulsePomodoro Watch AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8841F4572B92E77A000C3B58 /* PulsePomodoro_Watch_AppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulsePomodoro_Watch_AppUITests.swift; sourceTree = "<group>"; };
 		8841F4592B92E77A000C3B58 /* PulsePomodoro_Watch_AppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulsePomodoro_Watch_AppUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		8862818D2B9AA8EB008C87E3 /* PomodoroService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroService.swift; sourceTree = "<group>"; };
 		88A8C16B2B966DA300B20D66 /* PulsePomodoro Watch App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "PulsePomodoro Watch App.entitlements"; sourceTree = "<group>"; };
 		88A8C16F2B9689A600B20D66 /* PulsePomodoro-Watch-App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "PulsePomodoro-Watch-App-Info.plist"; sourceTree = SOURCE_ROOT; };
 		88E616F42B97DCD8009BEB6F /* PomodoroModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroModel.swift; sourceTree = "<group>"; };
@@ -82,6 +88,10 @@
 		88E616FE2B97DE06009BEB6F /* RemainingMinutesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemainingMinutesView.swift; sourceTree = "<group>"; };
 		88E617042B97E818009BEB6F /* PomodoroResumeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroResumeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		887DEECA2CED7C0600B473C7 /* helpers */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = helpers; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		8841F4342B92E779000C3B58 /* Frameworks */ = {
@@ -108,6 +118,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		883E40052CE5B3870052EF8F /* components */ = {
+			isa = PBXGroup;
+			children = (
+				883E40062CE5B3930052EF8F /* TimerOption.swift */,
+			);
+			path = components;
+			sourceTree = "<group>";
+		};
 		8841F42A2B92E778000C3B58 = {
 			isa = PBXGroup;
 			children = (
@@ -132,6 +150,9 @@
 		8841F43B2B92E779000C3B58 /* PulsePomodoro Watch App */ = {
 			isa = PBXGroup;
 			children = (
+				887DEECA2CED7C0600B473C7 /* helpers */,
+				883E40082CE5BAE00052EF8F /* Router.swift */,
+				883E40052CE5B3870052EF8F /* components */,
 				88E616FD2B97DDD7009BEB6F /* views */,
 				88E616F82B97DD59009BEB6F /* services */,
 				88E616F32B97DC92009BEB6F /* models */,
@@ -184,6 +205,7 @@
 			children = (
 				88E616F92B97DD7E009BEB6F /* HealhKitService.swift */,
 				88E616FB2B97DDB5009BEB6F /* LocalStorageService.swift */,
+				8862818D2B9AA8EB008C87E3 /* PomodoroService.swift */,
 			);
 			path = services;
 			sourceTree = "<group>";
@@ -228,6 +250,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				887DEECA2CED7C0600B473C7 /* helpers */,
 			);
 			name = "PulsePomodoro Watch App";
 			productName = "PulsePomodoro Watch App";
@@ -355,13 +380,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				883E40092CE5BAE40052EF8F /* Router.swift in Sources */,
 				88E616FA2B97DD7E009BEB6F /* HealhKitService.swift in Sources */,
 				88E616FC2B97DDB5009BEB6F /* LocalStorageService.swift in Sources */,
 				88E616F52B97DCD8009BEB6F /* PomodoroModel.swift in Sources */,
 				88E616F72B97DD29009BEB6F /* DateModel.swift in Sources */,
 				88E616FF2B97DE06009BEB6F /* RemainingMinutesView.swift in Sources */,
 				8841F43F2B92E779000C3B58 /* ContentView.swift in Sources */,
+				8862818E2B9AA8EB008C87E3 /* PomodoroService.swift in Sources */,
 				88E617052B97E818009BEB6F /* PomodoroResumeView.swift in Sources */,
+				883E40072CE5B3A10052EF8F /* TimerOption.swift in Sources */,
 				8841F43D2B92E779000C3B58 /* PulsePomodoroApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -528,7 +556,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = "PulsePomodoro Watch App/PulsePomodoro Watch App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"PulsePomodoro Watch App/Preview Content\"";
 				DEVELOPMENT_TEAM = 4KWUX6ULKJ;
 				ENABLE_PREVIEWS = YES;
@@ -536,14 +564,15 @@
 				INFOPLIST_FILE = "PulsePomodoro-Watch-App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Pulse Pomodoro";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
-				INFOPLIST_KEY_NSHealthShareUsageDescription = HKQuantityTypeIdentifierHeartRate;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "We need this data to monitor your heart rate while you are using pomodoro";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "We need this data to monitor your heart rate while you are using pomodoro";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKWatchOnly = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mateus.PulsePomodoro.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -563,7 +592,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = "PulsePomodoro Watch App/PulsePomodoro Watch App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"PulsePomodoro Watch App/Preview Content\"";
 				DEVELOPMENT_TEAM = 4KWUX6ULKJ;
 				ENABLE_PREVIEWS = YES;
@@ -571,14 +600,15 @@
 				INFOPLIST_FILE = "PulsePomodoro-Watch-App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Pulse Pomodoro";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
-				INFOPLIST_KEY_NSHealthShareUsageDescription = HKQuantityTypeIdentifierHeartRate;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "We need this data to monitor your heart rate while you are using pomodoro";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "We need this data to monitor your heart rate while you are using pomodoro";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKWatchOnly = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mateus.PulsePomodoro.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -596,10 +626,10 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 4KWUX6ULKJ;
 				INFOPLIST_KEY_CFBundleDisplayName = PulsePomodoro;
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mateus.PulsePomodoro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -612,10 +642,10 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 4KWUX6ULKJ;
 				INFOPLIST_KEY_CFBundleDisplayName = PulsePomodoro;
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mateus.PulsePomodoro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -630,10 +660,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 4KWUX6ULKJ;
 				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mateus.PulsePomodoro-Watch-AppTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -651,10 +681,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 4KWUX6ULKJ;
 				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mateus.PulsePomodoro-Watch-AppTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -672,10 +702,10 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 4KWUX6ULKJ;
 				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mateus.PulsePomodoro-Watch-AppUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -692,10 +722,10 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 4KWUX6ULKJ;
 				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mateus.PulsePomodoro-Watch-AppUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
