@@ -55,11 +55,7 @@ struct ContentView: View {
                     .font(.caption)
                     .fontWeight(.bold)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .scenePadding()
-                    .padding(
-                        EdgeInsets(top: -20, leading: 0, bottom: 0, trailing: 0)
-                    )
-                
+
                 ScrollView {
                         ForEach(pomodoros, id: \.self) {pomodoro in
                             VStack(alignment: .leading) {
@@ -70,16 +66,18 @@ struct ContentView: View {
                                 HStack {
                                     Image(systemName: "lungs.fill")
                                         .foregroundStyle(Color.blue)
-                                        .font(.subheadline)
+                                        .font(.system(size: 12))
                                     Text("\(pomodoro.respiratoryRate)")
                                         .font(.system(size: 10))
         
                                     Image(systemName: "heart.fill")
                                         .foregroundStyle(Color.red)
-                                        .font(.subheadline)
+                                        .font(.system(size: 12))
                                     Text("\(pomodoro.heartRate)")
                                         .font(.system(size: 10))
                                 }
+                                .padding(.vertical, 4)
+                                
                                 
                                 Text(formatRelativeTime(from: pomodoro.endDate))
                                     .font(.system(size: 10))
@@ -87,10 +85,6 @@ struct ContentView: View {
                                 
                                 Divider()
                             }
-                            .frame(
-                                maxWidth: .infinity,
-                                alignment: .init(horizontal: .leading, vertical: .firstTextBaseline)
-                            )
                             .padding(.all, 4)
                         }
                 }
@@ -99,7 +93,7 @@ struct ContentView: View {
                     switch result {
                     case .success(let pomodoros):
                         // Successfully fetched pomodoros, update the state
-                        self.pomodoros = pomodoros
+                        self.pomodoros = pomodoros.sorted { $0.endDate > $1.endDate }
                     case .failure(let error):
                         // Handle the error (e.g., show an alert or log it)
                         print("Error fetching pomodoros: \(error)")
